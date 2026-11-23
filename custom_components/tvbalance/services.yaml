@@ -1,0 +1,129 @@
+bonus:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+    minutes:
+      required: true
+      example: 15
+      selector:
+        number:
+          min: 1
+          max: 240
+          unit_of_measurement: min
+          mode: box
+
+allow:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+    minutes:
+      required: false
+      example: 60
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: min
+          mode: box
+    until_midnight:
+      required: false
+      default: false
+      selector:
+        boolean:
+
+block:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+    minutes:
+      required: false
+      example: 60
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: min
+          mode: box
+    until_midnight:
+      required: false
+      default: false
+      selector:
+        boolean:
+
+pause:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+    minutes:
+      required: false
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: min
+          mode: box
+
+clear_override:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+
+set_monitoring:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: tvbalance
+    enabled:
+      required: true
+      selector:
+        boolean:
+
+activate_profile:
+  fields:
+    policy_id:
+      required: true
+      example: 2
+      selector:
+        number:
+          min: 1
+          mode: box
+    minutes:
+      required: false
+      example: 120
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: min
+          mode: box
+    until_midnight:
+      required: false
+      default: false
+      selector:
+        boolean:
+    excluded_device_ids:
+      required: false
+      selector:
+        device:
+          integration: tvbalance
+          multiple: true
+
+stop_profile:

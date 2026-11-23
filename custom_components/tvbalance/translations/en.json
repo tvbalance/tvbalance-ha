@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to TVBalance",
+        "description": "Enter the address of your TVBalance Engine (default port 8765).",
+        "data": {
+          "url": "Engine URL",
+          "token": "API token"
+        }
+      },
+      "hassio_confirm": {
+        "title": "Set up TVBalance",
+        "description": "Set up the TVBalance Add-on found at its Home Assistant address?"
+      },
+      "reauth_confirm": {
+        "title": "Sign in to TVBalance again",
+        "description": "The Engine at {url} no longer accepts the API token. Create a new token in the TVBalance web app and enter it here.",
+        "data": {
+          "token": "API token"
+        }
+      },
+      "tls_confirm": {
+        "title": "Trust the TVBalance certificate",
+        "description": "The Engine at {url} uses a certificate from its own local authority. Open TVBalance, go to Settings > Secure connection and check that the fingerprint is the same as this one:\n\n{fingerprint}\n\nSubmit to trust it. Home Assistant will accept only this certificate authority for this Engine."
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot reach the TVBalance Engine.",
+      "invalid_auth": "The Engine rejected the API token.",
+      "invalid_response": "The server answered, but it does not look like a TVBalance Engine.",
+      "untrusted_certificate": "The certificate of this Engine is not trusted, and it has no local authority to trust. Use a certificate that Home Assistant already trusts, or turn on the automatic one."
+    },
+    "abort": {
+      "already_configured": "This Engine is already configured.",
+      "reauth_successful": "The new API token is working.",
+      "invalid_discovery": "The TVBalance information is not valid."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "watching": "On",
+          "standby": "Standby",
+          "off": "Off",
+          "unreachable": "Unreachable",
+          "needs_pairing": "Needs pairing",
+          "not_monitored": "Not monitored"
+        }
+      },
+      "app": {
+        "name": "App"
+      },
+      "input": {
+        "name": "Input"
+      },
+      "channel": {
+        "name": "Channel"
+      },
+      "program": {
+        "name": "Program"
+      },
+      "watched_today": {
+        "name": "Watched today"
+      },
+      "time_left": {
+        "name": "Time left today"
+      },
+      "profile": {
+        "name": "Active profile"
+      }
+    },
+    "event": {
+      "activity": {
+        "name": "Activity",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "time_warning": "Time warning",
+              "blocked": "Blocked",
+              "redirected": "Redirected",
+              "powered_off": "Switched off",
+              "enforcement_paused": "Rules paused",
+              "enforcement_unavailable": "Rules cannot be applied",
+              "tv_unreachable": "TV unreachable",
+              "tv_reachable": "TV reachable again",
+              "pairing_lost": "Pairing lost",
+              "tv_paired": "TV paired",
+              "profile_started": "Profile started",
+              "profile_ended": "Profile ended",
+              "weekly_report": "Weekly report"
+            }
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "blocked": {
+        "name": "Blocked"
+      },
+      "connected": {
+        "name": "Connected"
+      },
+      "needs_pairing": {
+        "name": "Needs pairing"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "Pause for 30 minutes"
+      }
+    }
+  },
+  "services": {
+    "bonus": {
+      "name": "Grant extra time",
+      "description": "Adds minutes to today's budget. Needs a Home Assistant administrator.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "How long, in minutes."
+        }
+      }
+    },
+    "allow": {
+      "name": "Allow the TV",
+      "description": "Allows the TV regardless of the rules for a while. Needs a Home Assistant administrator.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "How long, in minutes."
+        },
+        "until_midnight": {
+          "name": "Until midnight",
+          "description": "Last until midnight instead of a number of minutes."
+        }
+      }
+    },
+    "block": {
+      "name": "Block the TV",
+      "description": "Blocks the TV regardless of the rules for a while. Needs a Home Assistant administrator.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "How long, in minutes."
+        },
+        "until_midnight": {
+          "name": "Until midnight",
+          "description": "Last until midnight instead of a number of minutes."
+        }
+      }
+    },
+    "pause": {
+      "name": "Pause rules",
+      "description": "Stops enforcement for a while. Needs a Home Assistant administrator.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "How long, in minutes."
+        }
+      }
+    },
+    "clear_override": {
+      "name": "Back to the rules",
+      "description": "Cancels an active allow, block or pause. Needs a Home Assistant administrator.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        }
+      }
+    },
+    "set_monitoring": {
+      "name": "Switch monitoring",
+      "description": "Turns monitoring of the TV on or off. Needs a Home Assistant administrator and an API token with the Administer scope.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "The TV to act on."
+        },
+        "enabled": {
+          "name": "Monitoring",
+          "description": "Turn monitoring on or off."
+        }
+      }
+    },
+    "activate_profile": {
+      "name": "Activate profile",
+      "description": "Puts a rule set in force for every TV in the household. Needs a Home Assistant administrator and the Pro plan.",
+      "fields": {
+        "policy_id": {
+          "name": "Rule set ID",
+          "description": "The number of the rule set, shown in the Engine's address bar when you edit it."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "How long, in minutes."
+        },
+        "until_midnight": {
+          "name": "Until midnight",
+          "description": "Keep it on until the household's midnight."
+        },
+        "excluded_device_ids": {
+          "name": "TVs to leave out",
+          "description": "These TVs keep following their own rules."
+        }
+      }
+    },
+    "stop_profile": {
+      "name": "Stop profile",
+      "description": "Ends the profile now. Needs a Home Assistant administrator.",
+      "fields": {}
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "This device is not a TVBalance TV."
+    },
+    "entry_not_loaded": {
+      "message": "The TVBalance integration for this TV is not loaded."
+    },
+    "choose_one_duration": {
+      "message": "Give either minutes or until midnight, not both and not neither."
+    },
+    "not_allowed": {
+      "message": "The Engine refused this action: {error}. Check that the API token has the needed scope (Administer is needed to switch monitoring)."
+    },
+    "engine_error": {
+      "message": "The TVBalance Engine reported a problem: {error}"
+    }
+  }
+}

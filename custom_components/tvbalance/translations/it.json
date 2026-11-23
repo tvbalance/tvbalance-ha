@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Collegati a TVBalance",
+        "description": "Inserisci l'indirizzo del tuo Engine TVBalance (porta predefinita 8765).",
+        "data": {
+          "url": "URL dell'Engine",
+          "token": "Token API"
+        }
+      },
+      "hassio_confirm": {
+        "title": "Configura TVBalance",
+        "description": "Configurare l'Add-on TVBalance trovato in Home Assistant?"
+      },
+      "reauth_confirm": {
+        "title": "Accedi di nuovo a TVBalance",
+        "description": "L'Engine su {url} non accetta più il token API. Crea un nuovo token nell'app web di TVBalance e inseriscilo qui.",
+        "data": {
+          "token": "Token API"
+        }
+      },
+      "tls_confirm": {
+        "title": "Considera attendibile il certificato di TVBalance",
+        "description": "L'Engine a {url} usa un certificato della propria autorità locale. Apri TVBalance, vai in Impostazioni > Connessione sicura e controlla che l'impronta sia uguale a questa:\n\n{fingerprint}\n\nConferma per fidarti. Home Assistant accetterà solo questa autorità per questo Engine."
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossibile raggiungere l'Engine TVBalance.",
+      "invalid_auth": "L'Engine ha rifiutato il token API.",
+      "invalid_response": "Il server ha risposto, ma non sembra un Engine TVBalance.",
+      "untrusted_certificate": "Il certificato di questo Engine non è attendibile e non ha un'autorità locale di cui fidarsi. Usa un certificato che Home Assistant già considera attendibile, oppure attiva quello automatico."
+    },
+    "abort": {
+      "already_configured": "Questo Engine è già configurato.",
+      "reauth_successful": "Il nuovo token API funziona.",
+      "invalid_discovery": "Le informazioni di TVBalance non sono valide."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Stato",
+        "state": {
+          "watching": "Accesa",
+          "standby": "In standby",
+          "off": "Spenta",
+          "unreachable": "Non raggiungibile",
+          "needs_pairing": "Da associare",
+          "not_monitored": "Non controllata"
+        }
+      },
+      "app": {
+        "name": "App"
+      },
+      "input": {
+        "name": "Ingresso"
+      },
+      "channel": {
+        "name": "Canale"
+      },
+      "program": {
+        "name": "Programma"
+      },
+      "watched_today": {
+        "name": "Visto oggi"
+      },
+      "time_left": {
+        "name": "Tempo rimasto oggi"
+      },
+      "profile": {
+        "name": "Profilo attivo"
+      }
+    },
+    "event": {
+      "activity": {
+        "name": "Attività",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "time_warning": "Avviso di tempo",
+              "blocked": "Bloccata",
+              "redirected": "Reindirizzata",
+              "powered_off": "Spenta",
+              "enforcement_paused": "Regole in pausa",
+              "enforcement_unavailable": "Regole non applicabili",
+              "tv_unreachable": "TV non raggiungibile",
+              "tv_reachable": "TV di nuovo raggiungibile",
+              "pairing_lost": "Associazione persa",
+              "tv_paired": "TV associata",
+              "profile_started": "Profilo avviato",
+              "profile_ended": "Profilo terminato",
+              "weekly_report": "Report settimanale"
+            }
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "blocked": {
+        "name": "Bloccata"
+      },
+      "connected": {
+        "name": "Connessa"
+      },
+      "needs_pairing": {
+        "name": "Da associare"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "Pausa di 30 minuti"
+      }
+    }
+  },
+  "services": {
+    "bonus": {
+      "name": "Concedi tempo extra",
+      "description": "Aggiunge minuti al tempo di oggi. Serve un amministratore di Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        },
+        "minutes": {
+          "name": "Minuti",
+          "description": "Per quanto tempo, in minuti."
+        }
+      }
+    },
+    "allow": {
+      "name": "Consenti la TV",
+      "description": "Consente la TV a prescindere dalle regole per un po'. Serve un amministratore di Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        },
+        "minutes": {
+          "name": "Minuti",
+          "description": "Per quanto tempo, in minuti."
+        },
+        "until_midnight": {
+          "name": "Fino a mezzanotte",
+          "description": "Dura fino a mezzanotte invece che per un numero di minuti."
+        }
+      }
+    },
+    "block": {
+      "name": "Blocca la TV",
+      "description": "Blocca la TV a prescindere dalle regole per un po'. Serve un amministratore di Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        },
+        "minutes": {
+          "name": "Minuti",
+          "description": "Per quanto tempo, in minuti."
+        },
+        "until_midnight": {
+          "name": "Fino a mezzanotte",
+          "description": "Dura fino a mezzanotte invece che per un numero di minuti."
+        }
+      }
+    },
+    "pause": {
+      "name": "Metti in pausa le regole",
+      "description": "Sospende il controllo per un po'. Serve un amministratore di Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        },
+        "minutes": {
+          "name": "Minuti",
+          "description": "Per quanto tempo, in minuti."
+        }
+      }
+    },
+    "clear_override": {
+      "name": "Torna alle regole",
+      "description": "Annulla un consenso, un blocco o una pausa attivi. Serve un amministratore di Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        }
+      }
+    },
+    "set_monitoring": {
+      "name": "Cambia il controllo",
+      "description": "Attiva o disattiva il controllo della TV. Serve un amministratore di Home Assistant e un token API con l'ambito Amministra.",
+      "fields": {
+        "device_id": {
+          "name": "TV",
+          "description": "La TV su cui agire."
+        },
+        "enabled": {
+          "name": "Controllo",
+          "description": "Attiva o disattiva il controllo."
+        }
+      }
+    },
+    "activate_profile": {
+      "name": "Attiva profilo",
+      "description": "Mette in vigore un set di regole per tutte le TV di casa. Richiede un amministratore di Home Assistant e il piano Pro.",
+      "fields": {
+        "policy_id": {
+          "name": "ID del set di regole",
+          "description": "Il numero del set di regole, visibile nell'indirizzo dell'Engine quando lo modifichi."
+        },
+        "minutes": {
+          "name": "Minuti",
+          "description": "Per quanto tempo, in minuti."
+        },
+        "until_midnight": {
+          "name": "Fino a mezzanotte",
+          "description": "Resta attivo fino alla mezzanotte di casa."
+        },
+        "excluded_device_ids": {
+          "name": "TV da escludere",
+          "description": "Queste TV continuano a seguire le proprie regole."
+        }
+      }
+    },
+    "stop_profile": {
+      "name": "Termina profilo",
+      "description": "Termina subito il profilo. Richiede un amministratore di Home Assistant.",
+      "fields": {}
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "Questo dispositivo non è una TV di TVBalance."
+    },
+    "entry_not_loaded": {
+      "message": "L'integrazione TVBalance di questa TV non è caricata."
+    },
+    "choose_one_duration": {
+      "message": "Indica i minuti oppure fino a mezzanotte, non entrambi e non nessuno."
+    },
+    "not_allowed": {
+      "message": "L'Engine ha rifiutato l'azione: {error}. Controlla che il token API abbia l'ambito necessario (per cambiare il controllo serve Amministra)."
+    },
+    "engine_error": {
+      "message": "L'Engine TVBalance ha segnalato un problema: {error}"
+    }
+  }
+}

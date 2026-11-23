@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Se connecter à TVBalance",
+        "description": "Saisissez l'adresse de votre Engine TVBalance (port par défaut 8765).",
+        "data": {
+          "url": "URL de l'Engine",
+          "token": "Jeton d'API"
+        }
+      },
+      "hassio_confirm": {
+        "title": "Configurer TVBalance",
+        "description": "Configurer le module complémentaire TVBalance trouvé dans Home Assistant ?"
+      },
+      "reauth_confirm": {
+        "title": "Se reconnecter à TVBalance",
+        "description": "L'Engine à l'adresse {url} n'accepte plus le jeton d'API. Créez un nouveau jeton dans l'application web TVBalance et saisissez-le ici.",
+        "data": {
+          "token": "Jeton d'API"
+        }
+      },
+      "tls_confirm": {
+        "title": "Faire confiance au certificat TVBalance",
+        "description": "Le moteur à {url} utilise un certificat de sa propre autorité locale. Ouvrez TVBalance, allez dans Réglages > Connexion sécurisée et vérifiez que l'empreinte est identique à celle-ci :\n\n{fingerprint}\n\nValidez pour lui faire confiance. Home Assistant n'acceptera que cette autorité pour ce moteur."
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossible de joindre l'Engine TVBalance.",
+      "invalid_auth": "L'Engine a refusé le jeton d'API.",
+      "invalid_response": "Le serveur a répondu, mais ne ressemble pas à un Engine TVBalance.",
+      "untrusted_certificate": "Le certificat de ce moteur n'est pas approuvé et il n'a pas d'autorité locale à approuver. Utilisez un certificat que Home Assistant approuve déjà, ou activez le certificat automatique."
+    },
+    "abort": {
+      "already_configured": "Cet Engine est déjà configuré.",
+      "reauth_successful": "Le nouveau jeton d'API fonctionne.",
+      "invalid_discovery": "Les informations de TVBalance ne sont pas valides."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "État",
+        "state": {
+          "watching": "Allumée",
+          "standby": "En veille",
+          "off": "Éteinte",
+          "unreachable": "Injoignable",
+          "needs_pairing": "À associer",
+          "not_monitored": "Non surveillée"
+        }
+      },
+      "app": {
+        "name": "Application"
+      },
+      "input": {
+        "name": "Entrée"
+      },
+      "channel": {
+        "name": "Chaîne"
+      },
+      "program": {
+        "name": "Programme"
+      },
+      "watched_today": {
+        "name": "Regardé aujourd'hui"
+      },
+      "time_left": {
+        "name": "Temps restant aujourd'hui"
+      },
+      "profile": {
+        "name": "Profil actif"
+      }
+    },
+    "event": {
+      "activity": {
+        "name": "Activité",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "time_warning": "Avertissement de temps",
+              "blocked": "Bloquée",
+              "redirected": "Redirigée",
+              "powered_off": "Éteinte",
+              "enforcement_paused": "Règles en pause",
+              "enforcement_unavailable": "Règles inapplicables",
+              "tv_unreachable": "Télévision injoignable",
+              "tv_reachable": "Télévision de nouveau joignable",
+              "pairing_lost": "Association perdue",
+              "tv_paired": "Télévision associée",
+              "profile_started": "Profil démarré",
+              "profile_ended": "Profil terminé",
+              "weekly_report": "Rapport hebdomadaire"
+            }
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "blocked": {
+        "name": "Bloquée"
+      },
+      "connected": {
+        "name": "Connectée"
+      },
+      "needs_pairing": {
+        "name": "À associer"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "Pause de 30 minutes"
+      }
+    }
+  },
+  "services": {
+    "bonus": {
+      "name": "Accorder du temps en plus",
+      "description": "Ajoute des minutes au temps d'aujourd'hui. Nécessite un administrateur Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "Pendant combien de temps, en minutes."
+        }
+      }
+    },
+    "allow": {
+      "name": "Autoriser la télévision",
+      "description": "Autorise la télévision malgré les règles pendant un moment. Nécessite un administrateur Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "Pendant combien de temps, en minutes."
+        },
+        "until_midnight": {
+          "name": "Jusqu'à minuit",
+          "description": "Dure jusqu'à minuit au lieu d'un nombre de minutes."
+        }
+      }
+    },
+    "block": {
+      "name": "Bloquer la télévision",
+      "description": "Bloque la télévision malgré les règles pendant un moment. Nécessite un administrateur Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "Pendant combien de temps, en minutes."
+        },
+        "until_midnight": {
+          "name": "Jusqu'à minuit",
+          "description": "Dure jusqu'à minuit au lieu d'un nombre de minutes."
+        }
+      }
+    },
+    "pause": {
+      "name": "Suspendre les règles",
+      "description": "Suspend l'application des règles pendant un moment. Nécessite un administrateur Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "Pendant combien de temps, en minutes."
+        }
+      }
+    },
+    "clear_override": {
+      "name": "Revenir aux règles",
+      "description": "Annule une autorisation, un blocage ou une pause en cours. Nécessite un administrateur Home Assistant.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        }
+      }
+    },
+    "set_monitoring": {
+      "name": "Changer la surveillance",
+      "description": "Active ou désactive la surveillance de la télévision. Nécessite un administrateur Home Assistant et un jeton d'API avec la portée Administrer.",
+      "fields": {
+        "device_id": {
+          "name": "Télévision",
+          "description": "La télévision concernée."
+        },
+        "enabled": {
+          "name": "Surveillance",
+          "description": "Active ou désactive la surveillance."
+        }
+      }
+    },
+    "activate_profile": {
+      "name": "Activer un profil",
+      "description": "Met un jeu de règles en vigueur pour tous les téléviseurs du foyer. Demande un administrateur Home Assistant et l'offre Pro.",
+      "fields": {
+        "policy_id": {
+          "name": "ID du jeu de règles",
+          "description": "Le numéro du jeu de règles, visible dans l'adresse de l'Engine quand vous le modifiez."
+        },
+        "minutes": {
+          "name": "Minutes",
+          "description": "Pendant combien de temps, en minutes."
+        },
+        "until_midnight": {
+          "name": "Jusqu'à minuit",
+          "description": "Reste actif jusqu'à minuit pour le foyer."
+        },
+        "excluded_device_ids": {
+          "name": "Téléviseurs à exclure",
+          "description": "Ces téléviseurs gardent leurs propres règles."
+        }
+      }
+    },
+    "stop_profile": {
+      "name": "Terminer le profil",
+      "description": "Termine le profil immédiatement. Demande un administrateur Home Assistant.",
+      "fields": {}
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "Cet appareil n'est pas une télévision TVBalance."
+    },
+    "entry_not_loaded": {
+      "message": "L'intégration TVBalance de cette télévision n'est pas chargée."
+    },
+    "choose_one_duration": {
+      "message": "Indiquez soit des minutes, soit jusqu'à minuit, pas les deux et pas aucun."
+    },
+    "not_allowed": {
+      "message": "L'Engine a refusé l'action : {error}. Vérifiez que le jeton d'API a la portée requise (Administrer est nécessaire pour changer la surveillance)."
+    },
+    "engine_error": {
+      "message": "L'Engine TVBalance signale un problème : {error}"
+    }
+  }
+}

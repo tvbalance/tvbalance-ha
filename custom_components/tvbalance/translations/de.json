@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit TVBalance verbinden",
+        "description": "Gib die Adresse deiner TVBalance Engine ein (Standardport 8765).",
+        "data": {
+          "url": "Engine-URL",
+          "token": "API-Token"
+        }
+      },
+      "hassio_confirm": {
+        "title": "TVBalance einrichten",
+        "description": "Das in Home Assistant gefundene TVBalance-Add-on einrichten?"
+      },
+      "reauth_confirm": {
+        "title": "Erneut bei TVBalance anmelden",
+        "description": "Die Engine unter {url} akzeptiert das API-Token nicht mehr. Erstelle in der TVBalance-Web-App ein neues Token und gib es hier ein.",
+        "data": {
+          "token": "API-Token"
+        }
+      },
+      "tls_confirm": {
+        "title": "Dem TVBalance-Zertifikat vertrauen",
+        "description": "Die Engine unter {url} nutzt ein Zertifikat ihrer eigenen lokalen Zertifizierungsstelle. Öffne TVBalance, gehe zu Einstellungen > Sichere Verbindung und prüfe, ob der Fingerabdruck mit diesem übereinstimmt:\n\n{fingerprint}\n\nBestätige, um zu vertrauen. Home Assistant akzeptiert für diese Engine nur diese Zertifizierungsstelle."
+      }
+    },
+    "error": {
+      "cannot_connect": "Die TVBalance Engine ist nicht erreichbar.",
+      "invalid_auth": "Die Engine hat das API-Token abgelehnt.",
+      "invalid_response": "Der Server hat geantwortet, sieht aber nicht wie eine TVBalance Engine aus.",
+      "untrusted_certificate": "Dem Zertifikat dieser Engine wird nicht vertraut, und es gibt keine lokale Zertifizierungsstelle, der man vertrauen könnte. Nutze ein Zertifikat, dem Home Assistant bereits vertraut, oder aktiviere das automatische."
+    },
+    "abort": {
+      "already_configured": "Diese Engine ist bereits eingerichtet.",
+      "reauth_successful": "Das neue API-Token funktioniert.",
+      "invalid_discovery": "Die TVBalance-Informationen sind ungültig."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "watching": "An",
+          "standby": "Standby",
+          "off": "Aus",
+          "unreachable": "Nicht erreichbar",
+          "needs_pairing": "Kopplung nötig",
+          "not_monitored": "Nicht überwacht"
+        }
+      },
+      "app": {
+        "name": "App"
+      },
+      "input": {
+        "name": "Eingang"
+      },
+      "channel": {
+        "name": "Kanal"
+      },
+      "program": {
+        "name": "Sendung"
+      },
+      "watched_today": {
+        "name": "Heute gesehen"
+      },
+      "time_left": {
+        "name": "Verbleibende Zeit heute"
+      },
+      "profile": {
+        "name": "Aktives Profil"
+      }
+    },
+    "event": {
+      "activity": {
+        "name": "Aktivität",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "time_warning": "Zeitwarnung",
+              "blocked": "Gesperrt",
+              "redirected": "Umgeleitet",
+              "powered_off": "Ausgeschaltet",
+              "enforcement_paused": "Regeln pausiert",
+              "enforcement_unavailable": "Regeln nicht anwendbar",
+              "tv_unreachable": "Fernseher nicht erreichbar",
+              "tv_reachable": "Fernseher wieder erreichbar",
+              "pairing_lost": "Kopplung verloren",
+              "tv_paired": "Fernseher gekoppelt",
+              "profile_started": "Profil gestartet",
+              "profile_ended": "Profil beendet",
+              "weekly_report": "Wochenbericht"
+            }
+          }
+        }
+      }
+    },
+    "binary_sensor": {
+      "blocked": {
+        "name": "Gesperrt"
+      },
+      "connected": {
+        "name": "Verbunden"
+      },
+      "needs_pairing": {
+        "name": "Kopplung nötig"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "30 Minuten pausieren"
+      }
+    }
+  },
+  "services": {
+    "bonus": {
+      "name": "Zusatzzeit gewähren",
+      "description": "Fügt dem heutigen Zeitkontingent Minuten hinzu. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        },
+        "minutes": {
+          "name": "Minuten",
+          "description": "Wie lange, in Minuten."
+        }
+      }
+    },
+    "allow": {
+      "name": "Fernseher erlauben",
+      "description": "Erlaubt den Fernseher für eine Weile unabhängig von den Regeln. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        },
+        "minutes": {
+          "name": "Minuten",
+          "description": "Wie lange, in Minuten."
+        },
+        "until_midnight": {
+          "name": "Bis Mitternacht",
+          "description": "Gilt bis Mitternacht statt für eine Anzahl Minuten."
+        }
+      }
+    },
+    "block": {
+      "name": "Fernseher sperren",
+      "description": "Sperrt den Fernseher für eine Weile unabhängig von den Regeln. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        },
+        "minutes": {
+          "name": "Minuten",
+          "description": "Wie lange, in Minuten."
+        },
+        "until_midnight": {
+          "name": "Bis Mitternacht",
+          "description": "Gilt bis Mitternacht statt für eine Anzahl Minuten."
+        }
+      }
+    },
+    "pause": {
+      "name": "Regeln pausieren",
+      "description": "Setzt die Durchsetzung für eine Weile aus. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        },
+        "minutes": {
+          "name": "Minuten",
+          "description": "Wie lange, in Minuten."
+        }
+      }
+    },
+    "clear_override": {
+      "name": "Zurück zu den Regeln",
+      "description": "Beendet eine aktive Erlaubnis, Sperre oder Pause. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        }
+      }
+    },
+    "set_monitoring": {
+      "name": "Überwachung umschalten",
+      "description": "Schaltet die Überwachung des Fernsehers ein oder aus. Erfordert einen Home-Assistant-Administrator und ein API-Token mit dem Bereich Verwalten.",
+      "fields": {
+        "device_id": {
+          "name": "Fernseher",
+          "description": "Der Fernseher, auf den sich die Aktion bezieht."
+        },
+        "enabled": {
+          "name": "Überwachung",
+          "description": "Überwachung ein- oder ausschalten."
+        }
+      }
+    },
+    "activate_profile": {
+      "name": "Profil aktivieren",
+      "description": "Setzt einen Regelsatz für alle Fernseher im Haushalt in Kraft. Erfordert einen Home-Assistant-Administrator und den Pro-Tarif.",
+      "fields": {
+        "policy_id": {
+          "name": "Regelsatz-ID",
+          "description": "Die Nummer des Regelsatzes, sichtbar in der Adresszeile der Engine beim Bearbeiten."
+        },
+        "minutes": {
+          "name": "Minuten",
+          "description": "Wie lange, in Minuten."
+        },
+        "until_midnight": {
+          "name": "Bis Mitternacht",
+          "description": "Bis zur Mitternacht des Haushalts aktiv lassen."
+        },
+        "excluded_device_ids": {
+          "name": "Auszunehmende Fernseher",
+          "description": "Diese Fernseher folgen weiter ihren eigenen Regeln."
+        }
+      }
+    },
+    "stop_profile": {
+      "name": "Profil beenden",
+      "description": "Beendet das Profil sofort. Erfordert einen Home-Assistant-Administrator.",
+      "fields": {}
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "Dieses Gerät ist kein TVBalance-Fernseher."
+    },
+    "entry_not_loaded": {
+      "message": "Die TVBalance-Integration für diesen Fernseher ist nicht geladen."
+    },
+    "choose_one_duration": {
+      "message": "Gib entweder Minuten oder bis Mitternacht an, nicht beides und nicht keines."
+    },
+    "not_allowed": {
+      "message": "Die Engine hat die Aktion abgelehnt: {error}. Prüfe, ob das API-Token den nötigen Bereich hat (zum Umschalten der Überwachung ist Verwalten nötig)."
+    },
+    "engine_error": {
+      "message": "Die TVBalance Engine meldet ein Problem: {error}"
+    }
+  }
+}
